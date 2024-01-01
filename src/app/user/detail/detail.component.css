@@ -1,0 +1,15 @@
+.onActive {
+    background-color:dimgray;
+    color: white;
+}
+
+
+.option {
+    width: 140px;
+    height: 80px;
+    font-size: 12px;
+    margin: 0 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}

@@ -1,0 +1,101 @@
+	<!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Checkout</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Checkout</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
+
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <div class="col-md-7">
+                    <!-- Billing Details -->
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Billing address</h3>
+                        </div>
+                        <form [formGroup]="form" (submit)="onSubmit()">
+                       
+                            <div class="form-group">
+                                <input class="input" type="text" name="first-name" placeholder="Name" formControlName="fullname">
+                            </div>
+                   
+                            <div class="form-group">
+                                <input class="input" type="email" name="email" placeholder="Email" formControlName="email">
+                            </div>
+                            <div class="form-group">
+                                <input class="input" type="text" name="address" placeholder="Address" formControlName="address">
+                            </div>
+                    
+                            <div class="form-group">
+                                <input class="input" type="tel" name="tel" placeholder="Telephone" formControlName="phone">
+                            </div>
+                            
+
+                        </form>
+                    
+                    </div>
+                    <!-- /Billing Details -->
+
+            
+
+                    <!-- Order notes -->
+                    <div class="order-notes">
+                        <textarea class="input" placeholder="Order Notes"></textarea>
+                    </div>
+                    <!-- /Order notes -->
+                </div>
+
+                <!-- Order Details -->
+                <div class="col-md-5 order-details">
+                    <div class="section-title text-center">
+                        <h3 class="title">Your Order</h3>
+                    </div>
+                    <div class="order-summary">
+                        <div class="order-col">
+                            <div><strong>PRODUCT</strong></div>
+                            <div><strong>TOTAL</strong></div>
+                        </div>
+                        <div class="order-products">
+                            <div class="order-col" *ngFor="let item of items">
+                                <div>{{item.cartQuantity}}x  {{item.laptop_name}} {{item.cpu}} {{item.ram}} {{item.storage}}</div>
+                                <div>{{(item.price*item.cartQuantity) | currency: " ": 'symbol':'1.0-0' }}đ</div>
+                            </div>
+                           
+                        </div>
+                        <div class="order-col">
+                            <div>Shiping</div>
+                            <div><strong>FREE</strong></div>
+                        </div>
+                        <div class="order-col">
+                            <div><strong>TOTAL</strong></div>
+                            <div><strong class="order-total">{{total| currency: " ": 'symbol':'1.0-0' }}đ</strong></div>
+                        </div>
+                    </div>
+            
+                    <a  class="primary-btn order-submit" (click)="submit()">Place order</a>
+                </div>
+                <!-- /Order Details -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->

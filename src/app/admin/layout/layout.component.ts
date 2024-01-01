@@ -21,7 +21,7 @@ export class LayoutComponent implements AfterViewInit{
   logOut(){
     try{
       this.cookie.delete('token', '/','localhost', undefined,"Lax");
-      this.cookie.delete('user', '/','localhost', undefined,"Lax");
+      this.cookie.delete('user_id', '/','localhost', undefined,"Lax");
       this.cookie.delete('roles', '/','localhost', undefined,"Lax");
     }
     catch(e){

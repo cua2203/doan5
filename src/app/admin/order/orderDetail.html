@@ -1,0 +1,71 @@
+
+<div class="card">
+    <div class="card-header">
+        <h5 >OrderDetail</h5>
+    </div>
+
+    <div class="card-body">
+
+      <div>
+        <ul>
+          <li>Khách hàng : {{Orders.Name}}</li>
+          <li>Địa chỉ : {{Orders.Address}}</li>
+          <li>Email : {{Orders.Email}}</li>
+          <li> Số điện thoại : {{Orders.Mobile}}</li>
+          <li>Ngày đặt : {{Orders.order_date}}</li>
+        </ul>
+
+      </div>
+      <div class="table-responsive text-nowrap">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Cpu</th>
+              <th>Ram</th>
+              <th>Storage</th>
+              <th>Pin</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of OrderDetails">
+              <td>
+                <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{item.laptop_name}}</strong>
+              </td>
+              <td><img style="width: 100px;" src="{{item.image}}" alt=""></td>
+              <td>{{item.cpu}}</td>
+              <td>{{item.ram}}</td>
+              <td>{{item.storage}}</td>
+              <td>{{item.pin}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.quantity*item.price}}</td>
+            
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+    
+    </div>
+
+
+  </div>
+
+<div class="card mt-1">
+  <div class="card-body">
+    <div class="col-md-6">
+      Processing - Shipping - Completed 
+
+    </div>
+    <div class="float-end col-md-1"><button class="btn btn-primary" (click)="sendmail()">Duyệt</button> </div>
+
+  </div>
+</div>
+
+

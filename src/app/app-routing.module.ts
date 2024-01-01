@@ -14,12 +14,36 @@ import { ProductComponent } from './admin/product/product.component';
 import { BrandComponent } from './admin/brand/brand.component';
 import { AddbrandComponent } from './admin/brand/add_brand';
 import { EditbrandComponent } from './admin/brand/edit_brand';
+import { ProductAddComponent } from './admin/product/add_product';
+import { ProductEditComponent } from './admin/product/edit_product';
+import { ProductDetailComponent } from './admin/product/product-detail';
+import { VariantEditComponent } from './admin/product/variant-edit';
+import { DetailComponent } from './user/detail/detail.component';
+import { CartComponent } from './user/cart/cart.component';
+import { CheckoutComponent } from './user/checkout/checkout.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { StoreComponent } from './user/store/store.component';
+import { OrderComponent } from './admin/order/order.component';
+import { OrderDetailComponent } from './admin/order/orderDetail';
 
 const routes: Routes = [
   {
     path: '',
     component: UserLayoutComponent,
     children: [{ path: '', component: HomeComponent }],
+  },
+
+  {
+    path: 'user',
+    component: UserLayoutComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'detail/:id', component: DetailComponent },
+      {path:'checkout',component: CheckoutComponent},
+      {path:'cart',component:CartComponent},
+      {path:'profile',component:ProfileComponent},
+      {path:'store',component:StoreComponent}
+    ],
   },
   {
     path: 'login',
@@ -36,7 +60,20 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'product', component: ProductComponent },
+      {path: 'order',children:[{path:'',component: OrderComponent},{path:'detail/:id',component:OrderDetailComponent}]},
+      {
+        path: 'product',
+        children: [
+          { path: '', component: ProductComponent },
+          { path: 'add', component: ProductAddComponent },
+          { path: 'edit/:id', component: ProductEditComponent },
+          { path: 'detail/:id', component: ProductDetailComponent },
+          {
+            path: 'var_edit/:id',
+            component: VariantEditComponent,
+          },
+        ],
+      },
       {
         path: 'brand',
         children: [

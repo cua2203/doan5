@@ -29,9 +29,9 @@ export class LoginComponent {
       )
       .subscribe((data: any) => {
         console.log(data)
-        this.cookie.set('user', data);
-        this.cookie.set('roles', data.roles);
-        this.cookie.set('token', data.token);
+        this.cookie.set('user_id', data.user_id,1,'/','localhost',true,'Lax');
+        this.cookie.set('roles', data.roles,1,'/','localhost',true,'Lax');
+        this.cookie.set('token', data.token,1,'/','localhost',true,'Lax');
      
         if(data.roles.includes('User') || data.roles.includes('Admin'))
             this.router.navigate(['/admin']);
