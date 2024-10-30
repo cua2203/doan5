@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { Select2Directive } from './directives/select2.directive';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './admin/layout/layout.component';
-import { UserLayoutComponent } from './user/layout/layout.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { BrandComponent } from './admin/brand/brand.component';
 import { ProductComponent } from './admin/product/product.component';
-import { HomeComponent } from './user/home/home.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,20 +24,24 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { ProductEditComponent } from './admin/product/edit_product';
 import { ProductDetailComponent } from './admin/product/product-detail';
 import { VariantEditComponent } from './admin/product/variant-edit';
-import { DetailComponent } from './user/detail/detail.component';
-import { CartComponent } from './user/cart/cart.component';
-import { CheckoutComponent } from './user/checkout/checkout.component';
-import { ProfileComponent } from './user/profile/profile.component';
-import { StoreComponent } from './user/store/store.component';
+
 import { OrderComponent } from './admin/order/order.component';
 import { OrderDetailComponent } from './admin/order/orderDetail';
-import { ToastComponent } from './toast/toast.component';
+
+import { ImportBillComponent } from './admin/import-bill/import-bill.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgChartsModule } from 'ng2-charts';
+import { BarChartComponent } from './admin/bar-chart/bar-chart.component';
+import { WarehouseComponent } from './admin/warehouse/warehouse.component';
+import { SupplierComponent } from './admin/supplier/supplier.component';
+import { UserComponent } from './admin/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    UserLayoutComponent,
+
     CategoryComponent,
     AddCategoryComponent,
     EditCategoryComponent,
@@ -50,18 +54,22 @@ import { ToastComponent } from './toast/toast.component';
     ProductComponent,
     VariantEditComponent,
     OrderDetailComponent,
-    HomeComponent,
+
     DashboardComponent,
     RegisterComponent,
     LoginComponent,
     ManageImageComponent,
-    DetailComponent,
-    CartComponent,
-    CheckoutComponent,
-    ProfileComponent,
-    StoreComponent,
+
     OrderComponent,
-    ToastComponent,
+
+    ImportBillComponent,
+    Select2Directive,
+    BarChartComponent,
+    WarehouseComponent,
+    SupplierComponent,
+    UserComponent,
+    
+
 
   
   ],
@@ -71,7 +79,11 @@ import { ToastComponent } from './toast/toast.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CKEditorModule
+    CKEditorModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
+    NgChartsModule    
+ 
   ],
   providers: [],
   bootstrap: [AppComponent]

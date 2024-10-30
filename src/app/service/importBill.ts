@@ -17,16 +17,61 @@ export class ImportBillService {
     });
   }
 
-    create(bill:any, token: string): Observable<any> {
+    create(bill:any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
       }),
     };
 
     return this.http.post(
       'http://localhost:3001/api/import/create',
       bill,
+      httpOptions
+    );
+  }
+
+
+  getByDate(from:any,to:any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+
+    return this.http.post(
+      'http://localhost:3001/api/import/getByDate',
+      {fromDate:from, toDate:to},
+      httpOptions
+    );
+  }
+
+  getDetail(id:Number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+
+    return this.http.get(
+      'http://localhost:3001/api/import/detail/'+ id ,
+      httpOptions
+    );
+  }
+
+  total(from:any,to:any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+
+    return this.http.post(
+      'http://localhost:3001/api/import/total' ,
+      {fromDate:from, toDate:to},
       httpOptions
     );
   }

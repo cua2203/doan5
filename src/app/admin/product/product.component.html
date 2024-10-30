@@ -4,8 +4,41 @@
  <!-- Bordered Table -->
  <div class="card">
     <div class="card-header">
-        <h5 >product</h5>
-        <a href="admin/product/add" class="btn btn-primary "><i class='bx bx-add-to-queue'></i></a>
+        <h5 >{{title}}</h5>
+        <div class="col-md-12 d-flex ">
+          <div class="col-md-3"><a href="admin/product/add" class="btn btn-primary "><i class='bx bx-add-to-queue'></i></a>
+          </div>
+
+          <div class="col-md-5">
+            <input type="text" style="width:250px;height:30px;outline: none;" placeholder="tìm kiếm ..." [(ngModel)]="Pagination.searchString" (input)="search()">
+            <button style="outline: none;box-sizing: border-box; padding: 3px;height: 30px;"  (click)="search()">Search</button>
+          </div>
+          <div class="col-md-4">
+            <select class="input-select" style="width:120px;height:30px;outline: none;" [(ngModel)]="Pagination.sort" (change)="sortChange()">
+              <option value="4">Name down</option>
+              <option value="3">Name up</option>
+              <option value="2">Newest</option>
+              <option value="1">Oldest</option>
+
+
+            </select>
+
+            <select name="" class="input-select" style="width:120px;height:30px;outline: none;"  [(ngModel)]= "Pagination.isActive" (change)="getProduct()">
+              <option value="1">Active</option>
+              <option value="2">DeActive</option>
+              <option value="3">All</option>
+            </select>
+
+            <select class="input-select" style="width:120px;height:30px;outline: none;" [(ngModel)]= "Pagination.pageSize" (change)="pageSizeChange()">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+      
+
+
+        </div>
  
 
     </div>
@@ -47,5 +80,29 @@
         </table>
       </div>
     </div>
+  </div>
+  <div class="demo-inline-spacing">
+    <!-- Basic Pagination -->
+    <nav aria-label="Page navigation d-flex ">
+      <ul class="pagination">
+     
+        <li class="page-item prev" *ngIf="Pagination.pageIndex!=1" (click)="previousPage()">
+          <a class="page-link" href="javascript:void(0);"
+            ><i class="tf-icon bx bx-chevron-left"></i
+          ></a>
+        </li>
+        <li class="page-item active" [ngClass]="{'active': Pagination.pageIndex === item}" *ngFor="let item of numbers" (click)="setPage(item)">
+          <a class="page-link" href="javascript:void(0);"
+          >{{item}}</a>
+        </li>
+    
+        <li class="page-item next" *ngIf="Pagination.pageIndex!=totalPage" (click)="nextPage()">
+          <a class="page-link" href="javascript:void(0);"
+            ><i class="tf-icon bx bx-chevron-right"></i
+          ></a>
+        </li>
+      </ul>
+    </nav>
+    <!--/ Basic Pagination -->
   </div>
   <!--/ Bordered Table -->

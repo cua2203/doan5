@@ -1,7 +1,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h5 >OrderDetail</h5>
+        <h5 >Chi tiết đơn hàng</h5>
     </div>
 
     <div class="card-body">
@@ -12,7 +12,7 @@
           <li>Địa chỉ : {{Orders.Address}}</li>
           <li>Email : {{Orders.Email}}</li>
           <li> Số điện thoại : {{Orders.Mobile}}</li>
-          <li>Ngày đặt : {{Orders.order_date}}</li>
+          <li>Ngày đặt : {{Orders.order_date |date:'yyyy-MM-dd' }}</li>
         </ul>
 
       </div>
@@ -41,9 +41,9 @@
               <td>{{item.ram}}</td>
               <td>{{item.storage}}</td>
               <td>{{item.pin}}</td>
-              <td>{{item.price}}</td>
+              <td>{{item.price | number: '1.0-0'}} VND</td>
               <td>{{item.quantity}}</td>
-              <td>{{item.quantity*item.price}}</td>
+              <td>{{item.quantity*item.price | number:'1.0-0'}} VND</td>
             
             </tr>
             
@@ -57,15 +57,22 @@
 
   </div>
 
-<div class="card mt-1">
-  <div class="card-body">
-    <div class="col-md-6">
-      Processing - Shipping - Completed 
+  <div class="card mt-1">
+    <div class="card-body">
+      <div class="row">
 
+        <div *ngFor="let item of OrderStatus " class="col-md-2" >
+                <div>-----{{item.change_time| date:'yyyy-MM-dd hh:mm:ss' }} ---------</div>
+                <div> {{item.new_status}}</div>
+        </div>
+      
+      </div>
+
+      <div class="float-end col-md-2">
+        <button class="btn btn-danger" [disabled]="OrderStatus[OrderStatus.length-1].new_status==='Completed' || OrderStatus[OrderStatus.length-1].new_status==='Cancelled'"  (click)="cancel()"> Hủy</button>
+        <button class="btn btn-primary"  [disabled]="OrderStatus[OrderStatus.length-1].new_status==='Completed' || OrderStatus[OrderStatus.length-1].new_status==='Cancelled' " (click)="excute()">Duyệt</button>
+       </div>
+  
     </div>
-    <div class="float-end col-md-1"><button class="btn btn-primary" (click)="sendmail()">Duyệt</button> </div>
-
   </div>
-</div>
-
 

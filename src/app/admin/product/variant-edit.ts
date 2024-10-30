@@ -37,8 +37,7 @@ export class VariantEditComponent implements OnInit {
       storage:['',[Validators.required]],
       pin:['',Validators.required],
       cpu:['',[Validators.required]],
-      var_image:['',[Validators.required]],
-      description:['',[Validators.required]]
+    
 
     })
     
@@ -48,9 +47,7 @@ export class VariantEditComponent implements OnInit {
         ram: data.ram,
         storage:data.storage,
         pin: data.pin,
-        cpu: data.cpu,
-        var_image: data.image,
-        description: data.description
+        cpu: data.cpu
         });
     
     },

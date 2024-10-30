@@ -38,10 +38,7 @@ export class ProductDetailComponent implements OnInit {
       ram: ['', [Validators.required]],
       storage: ['', [Validators.required]],
       pin: ['', Validators.required],
-      cpu: ['', [Validators.required]],
-      var_image: ['', [Validators.required]],
-      description: ['', [Validators.required]]
-
+      cpu: ['', [Validators.required]]
     })
     this.service.getVariant(this.id).subscribe((data) => { this.Variant = data; console.log(this.Variant) });
   }
@@ -59,23 +56,21 @@ export class ProductDetailComponent implements OnInit {
   onClick(id: number) {
     this.variant_id = id;
   }
-  onImport() {
-    let user_id = this.cookie.get('user_id');
+  // onImport() {
+  //   let user_id = this.cookie.get('user_id');
 
 
-    let bill = {
-      user_id:user_id,
-      variant_id: this.variant_id,
-      quantity: this.quantity,
-      price: this.price
-    }
-    this.importService.create(bill,this.cookie.get('token')).subscribe((err)=>{console.log(err)})
+  //   let bill = {
+  //     user_id:user_id,
+  //     variant_id: this.variant_id,
+  //     quantity: this.quantity,
+  //     price: this.price
+  //   }
+  //   this.importService.create(bill).subscribe((err)=>{console.log(err)})
 
-  }
+  // }
 
-  choseImage(event: string) {
-    this.form.get('var_image')?.setValue(constant.IMAGE_PATH + event);
-  }
+
 
   detail(id: number) {
     this.service.getVariant(id).subscribe((data) => { this.Variant = data });

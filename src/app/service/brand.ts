@@ -23,6 +23,7 @@ export class brandService {
     };
     return this.http.get<Ibrand[]>(this.api_url + 'brand/getAll', httpOptions);
   }
+  
   add(brand: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

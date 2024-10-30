@@ -1,0 +1,178 @@
+<div class="row col-md-12">
+    <div class="card col-md-5">
+        <div class="card-header border-bottom p-2 m-2">
+            <h5>Nhập hàng</h5>
+        </div>
+    
+        <div class="card-body col-md-12 ">
+    
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+                <div class="row col-md-12 ">
+               
+                    <div class="col-md-12 d-flex justify-content-around mb-2">
+                        <div class="form-group mb-2 col-md-6 m-1">
+                            <label >Kho hàng</label>
+                            <select  appSelect2  [appSelect2]="select2Options" name="warehouse_id"  class="form-control " formControlName="warehouse_id" >
+                         
+                                <option *ngFor="let item of warehouse" [value]="item.id">{{ item.name  }}</option>
+                            </select>
+    
+                        </div>
+    
+                        <div class="form-group mb-2 col-md-6 m-1">
+                            <label >Nhà cung cấp</label>
+                            <select appSelect2 [appSelect2]="select2Options" name="supplier_id" required class="form-control col-sm-3" formControlName="supplier_id">
+                         
+                                <option *ngFor="let item of suppliers" [value]="item.id">{{ item.name  }}</option>
+                            </select>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-md-12" >
+                        <div formArrayName="blocks">
+                            <div  *ngFor="let block of blocks.controls; let i = index" [formGroupName]="i" class=" mb-3" style="border:1px solid #ddd ; padding:20px">
+                                <div class="form-group mb-2 col-md-12 m-1">
+                                    <label >Chọn Laptop</label>
+            
+                                    <select appSelect2 [appSelect2]="select2Options" class="form-control " name="variant_id" formControlName="variant_id">
+                                        <option *ngFor="let item of variants" [value]="item.variant_id">{{ item.variant_name  }}({{item.variant_id}})</option>
+                                    </select>
+                                    
+                                </div>
+            
+                                <div class="col-md-6 d-flex">
+                                    <div class="form-group mb-2 col-md-12 m-1 ">
+                                        <label >Số lượng</label>
+                                        <input type="number" value="1" min="1" class="form-control" name="quantity" formControlName="quantity" required>
+                                    </div>
+                
+                                    <div class="form-group mb-2 col-md-12 m-1 ">
+                                        <label >Giá nhập</label>
+                                        <input type="text" placeholder="10.000.000" class="form-control" name="quantity" formControlName="price" required>
+                                    </div>
+            
+                                </div>
+                                <button type="button" class="btn btn-danger " (click)="removeBlock(i)"> <i class='bx bx-minus' style='color:#fffdfd'  ></i></button>
+                                <button type="button" class="btn btn-primary m-lg-1" (click)="addBlock()"><i class='bx bx-plus' style='color:#fffdfd'  ></i></button>
+        
+                            </div>
+    
+                        </div>
+    
+    
+                    </div>
+    
+                 
+                  
+               
+            
+                    <div class="col-md-6  ">
+                        <button class="btn btn-primary" type="submit" >Submit</button>
+                        <a class="btn btn-default m-lg-1" >Back</a>
+                    </div>
+        
+                </div>
+        
+            
+            </form>
+    
+        </div>
+    </div>  
+    
+    <div class="card col-md-7">
+
+        <div class="card-header col-md-12">
+            <input type="date" name="" id="fromDate" [(ngModel)]="fromDate" (change)="getAllImportBill(fromDate,toDate)">
+            <input type="date" name="" id="toDate" [(ngModel)]="toDate" (change)="getAllImportBill(fromDate,toDate)">
+        </div>
+     
+        <div  class="card-body col-md-12 table-fixed ">
+            <table  class="table table-striped  ">
+                <thead  class=" sticky-header">
+                        <tr>
+                            <th style="width: 5%;">Mã</th>
+                            <th style="width: 15%;">Kho</th>
+                            <th style="width: 20%;">NCC</th>
+                            <th style="width: 10%;">User</th>
+                            <th style="width: 30%;">Date</th>
+                            <th style="width: 5%;">Total</th>
+                            <th style="width: 5%;">Count</th>
+                        </tr>
+                </thead>
+                <tbody class="fixed_header_table_body">
+
+                    <tr  *ngFor="let item of importBills" (click)="openModal(item.id)" data-bs-toggle="modal" data-bs-target="#largeModal">
+                        <td >{{item.id}}</td>
+                        <td>{{item.warehouse}}</td>
+                        <td>{{item.supplier}}</td>
+                        <td>{{item.user}}</td>
+                        <td>{{item.date |date:'yyyy-MM-dd'}}</td>
+                        <td>{{item.total|number:'1.0-0'}}</td>
+                        <td>{{item.sl}}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+
+    
+   
+</div>
+
+     <!-- Large Modal -->
+     <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>laptop</th>
+                            <th>image</th>
+                            <th>ram</th>
+                            <th>storage</th>
+                            <th>cpu</th>
+                            <th>pin</th>
+                            <th>price</th>
+                            <th>quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of importDetail">
+                            <td scope="row">{{item.laptop_name}}</td>
+                            <td> <img style="width: 60px;" src="{{item.image}}"></td>
+                            <td> {{item.ram}}</td>
+                            <td> {{item.storage}}</td>
+                            <td> {{item.cpu}}</td>
+                            <td>{{item.pin}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.quantity}}</td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+              
+            </div>
+           
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+

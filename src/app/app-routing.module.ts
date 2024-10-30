@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './user/home/home.component';
-import { UserLayoutComponent } from './user/layout/layout.component';
+
 import { LayoutComponent } from './admin/layout/layout.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CategoryComponent } from './admin/category/category.component';
@@ -18,33 +17,22 @@ import { ProductAddComponent } from './admin/product/add_product';
 import { ProductEditComponent } from './admin/product/edit_product';
 import { ProductDetailComponent } from './admin/product/product-detail';
 import { VariantEditComponent } from './admin/product/variant-edit';
-import { DetailComponent } from './user/detail/detail.component';
-import { CartComponent } from './user/cart/cart.component';
-import { CheckoutComponent } from './user/checkout/checkout.component';
-import { ProfileComponent } from './user/profile/profile.component';
-import { StoreComponent } from './user/store/store.component';
+
 import { OrderComponent } from './admin/order/order.component';
 import { OrderDetailComponent } from './admin/order/orderDetail';
+import { ImportBillComponent } from './admin/import-bill/import-bill.component';
+import { WarehouseComponent } from './admin/warehouse/warehouse.component';
+import { SupplierComponent } from './admin/supplier/supplier.component';
+import { UserComponent } from './admin/user/user.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserLayoutComponent,
-    children: [{ path: '', component: HomeComponent }],
+    canActivate: [AuthGuard],
+    component: LayoutComponent,
+    children: [{ path: '', component: DashboardComponent }],
   },
 
-  {
-    path: 'user',
-    component: UserLayoutComponent,
-    children: [
-      { path: '', component: HomeComponent },
-      { path: 'detail/:id', component: DetailComponent },
-      {path:'checkout',component: CheckoutComponent},
-      {path:'cart',component:CartComponent},
-      {path:'profile',component:ProfileComponent},
-      {path:'store',component:StoreComponent}
-    ],
-  },
   {
     path: 'login',
     component: LoginComponent,
@@ -60,7 +48,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      {path: 'order',children:[{path:'',component: OrderComponent},{path:'detail/:id',component:OrderDetailComponent}]},
+      {
+        path: 'order',
+        children: [
+          { path: '', component: OrderComponent },
+          { path: 'detail/:id', component: OrderDetailComponent },
+        ],
+      },
       {
         path: 'product',
         children: [
@@ -81,6 +75,28 @@ const routes: Routes = [
           { path: 'add', component: AddbrandComponent },
           { path: 'edit/:id', component: EditbrandComponent },
         ],
+      },
+
+      {
+        path: 'import_bill',
+        canActivate: [AuthGuard],
+        children: [
+          { path: '', component: ImportBillComponent },
+          { path: 'add', component: ImportBillComponent },
+        ],
+      },
+      {
+        path: 'warehouse',
+        children: [{ path: '', component: WarehouseComponent }],
+      },
+      {
+        path: 'supplier',
+        children: [{ path: '', component: SupplierComponent }],
+      },
+      {
+        path: 'user_system',
+        canActivate: [AuthGuard],
+        children: [{ path: '', component: UserComponent }],
       },
 
       {

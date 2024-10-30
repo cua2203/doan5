@@ -1,0 +1,28 @@
+.table-fixed {
+    height:400px;
+    max-height: 400px; /* Chiều cao tối đa của bảng, bạn có thể thay đổi tùy theo nhu cầu */
+    overflow-y: auto; /* Kích hoạt cuộn dọc */
+  }
+  
+  .sticky-header {
+    position: sticky; /* Đặt vị trí cố định */
+    top: 0; /* Vị trí từ trên cùng */
+    z-index: 1; /* Đảm bảo header nằm trên các phần tử khác của bảng */
+    background-color: white; /* Đặt màu nền để header không trong suốt */
+  }
+
+.fixed_header_table_body{
+    height: 400px;
+    max-height: 400px;
+    overflow: hidden;
+}
+thead,th{
+    background-color: rgba(44, 109, 109, 0.74);
+    color: aliceblue !important;
+}
+
+tbody tr,th :hover{
+    background-color: #DDD !important;
+    cursor: pointer;
+    
+}

@@ -19,6 +19,7 @@ export class ProductAddComponent implements OnInit {
   brand!: Ibrand[];
   form!: FormGroup;
   editorConfig = editor.editorConfig;
+  image!:string;
 
   constructor(
     private cateService: CategoryService,
@@ -39,7 +40,6 @@ export class ProductAddComponent implements OnInit {
       storage:['',[Validators.required]],
       pin:['',Validators.required],
       cpu:['',[Validators.required]],
-      var_image:['',[Validators.required]],
       description:['',[Validators.required]]
 
     })
@@ -56,13 +56,10 @@ export class ProductAddComponent implements OnInit {
   
   choseImage(event: string) {
     this.form.get('image')?.setValue(constant.IMAGE_PATH+event);
+    this.image=constant.IMAGE_PATH+event
   
   }
-  choseImage1(event: string) {
-    this.form.get('var_image')?.setValue(constant.IMAGE_PATH+event);
 
-  
-  }
 
   getAllBrand(){
     this.brandService.getAll().subscribe(

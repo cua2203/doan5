@@ -1,0 +1,78 @@
+<div class="container-fluid">
+    <div class="p-0 row  col-md-12 col-lg-12 col-xl-12">
+      <div class="col-md-3  p-1 h-px-100  ">
+        <div class="m-1 p-1 border_1 rounded box_sizing h-px-100">
+          <div class="panel panel-default ">Tổng số đơn hàng :</div>
+          <div class="w-100 h-75 report_box--number">{{count}}</div>
+        </div>
+      </div>
+      <div class="col-md-3  p-1 h-px-100  ">
+        <div class="m-1 p-1 border_1 rounded box_sizing h-px-100">
+          <div class="panel panel-default">Tổng thu:</div>
+          <div class="w-100 h-75 report_box--number">{{total | number }}</div>
+        </div>
+      </div>
+      <div class="col-md-3  p-1 h-px-100  ">
+        <div class="m-1 p-1 border_1 rounded box_sizing h-px-100">
+          <div class="panel panel-default">Tổng chi :</div>
+          <div class="w-100 h-75 report_box--number">{{totalImport | number}}</div>
+        </div>
+      </div>
+      <div class="col-md-3  p-1 h-px-100  ">
+        <div class="m-1 p-1 border_1 rounded box_sizing h-px-100">
+          <div class="panel panel-default">Số khách hàng mới :</div>
+          <div class="w-100 h-75 report_box--number">50</div>
+        </div>
+      </div>
+     
+          
+    </div>
+
+    <div class="row mt-4 col-md-12">
+        <div class="col-md-4">
+
+            <input type="date" name="" id="from_date" [(ngModel)]="fromDate" (change)="reload()">
+            <input type="date" name="" id="to_date" [(ngModel)]="toDate" (change)="reload()">
+        </div>
+
+        <div class="col-md-4">
+
+         
+        </div>
+       
+    </div>
+
+    <div class="row mt-4">
+
+
+      <div class="col-md-6" style="height: 600px;">
+        <app-bar-chart 
+        [barChartOptions]="barChartOptions"
+        [barChartLabels]="barChartLabels"
+        [barChartType]="'bar'"
+        [barChartLegend]="barChartLegend"
+        [barChartData]="barChartData">
+        </app-bar-chart>
+
+      </div>
+      <div class="col-md-6" >
+        <div style="height: 400px;width: 400px; margin: 0 auto;">
+          <app-bar-chart 
+          [barChartOptions]="barChartOptions"
+          [barChartLabels]="listOrderStatus"
+          [barChartType]="'pie'"
+          [barChartLegend]="barChartLegend"
+          [barChartData]="pieChartData">
+          </app-bar-chart>
+
+        </div>
+      
+
+      </div>
+
+
+ 
+      
+    </div>
+
+</div>

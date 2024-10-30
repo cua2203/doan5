@@ -7,16 +7,20 @@ import { LaptopService } from 'src/app/service/laptop';
   templateUrl: './product.component.html'
 })
 export class ProductComponent {
-  title="Laptop"
+  title="Thông tin laptop"
   Laptop:IGetLaptop[]=[];
   Variant!:any[];
+
 
   Pagination:Ipagination={
     searchString: "",
     pageIndex :1,
     pageSize :5,
-    sort:1
+    sort:1,
+    isActive:1
   }
+  totalPage: any;
+  numbers!: number[];
 
   constructor(private service:LaptopService){
 
@@ -26,11 +30,29 @@ export class ProductComponent {
   }
 
   getProduct(){
-    this.service.getAll(this.Pagination).subscribe((data)=>{this.Laptop=data;console.log(data)});
+    this.service.getAll(this.Pagination).subscribe((data)=>{this.Laptop=data.data;this.totalPage = data.totalPage
+      this.numbers = Array.from({ length: this.totalPage }, (_, index) => index + 1);});
   }
 
   detail(id:number){
     this.service.getVariant(id).subscribe((data)=>{this.Variant=data})
+  }
+
+  setPage(page:number){
+    this.Pagination.pageIndex=page;
+    this.getProduct()
+
+  }
+
+  previousPage(){
+    if(   this.Pagination.pageIndex>1){
+      this.Pagination.pageIndex-=1;
+      this.getProduct()    }
+  }
+  nextPage(){
+    if(   this.Pagination.pageIndex<this.totalPage){
+      this.Pagination.pageIndex+=1;
+      this.getProduct()    }
   }
 
   pageSizeChange(){
@@ -42,13 +64,13 @@ export class ProductComponent {
   sortChange(){
     this.Pagination.pageIndex=1;
     this.getProduct();
-
   }
   delete(id:number){
-    this.service.delete(id).subscribe(()=>{
+    this.service.delete(id).subscribe((data)=>{
+      console.log(data)
       this.getProduct();
-
-    })
+    }
+    )
   }
 
 }

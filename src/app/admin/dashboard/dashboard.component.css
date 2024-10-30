@@ -1,0 +1,13 @@
+
+.border_1{
+
+    border: 1px solid #ccc;
+
+}
+
+.box_sizing {
+    box-sizing: border-box;
+}
+.report_box--number{
+    font-size: 2rem;
+}

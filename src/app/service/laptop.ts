@@ -6,8 +6,10 @@ import {
   IGetLaptop,
   IGetVariant,
   IVariant,
+  IgetPagination,
 } from '../model/laptop.model';
 import { Observable } from 'rxjs';
+import { constant } from '../config';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +17,7 @@ import { Observable } from 'rxjs';
 export class LaptopService {
   constructor(private http: HttpClient, private cookie: CookieService) {}
   token = this.cookie.get('token');
+  baseUrl = constant.API_URL ;
 
   private createHeaders(token: string): HttpHeaders {
     return new HttpHeaders({
@@ -23,20 +26,21 @@ export class LaptopService {
     });
   }
 
-  getAll(query: any): Observable<IGetLaptop[]> {
+  getAll(query: any): Observable<IgetPagination> {
     const searchString = query.searchString
       ? `&searchString=${query.searchString}`
       : '';
     const pageIndex = query.pageIndex ? `&pageIndex=${query.pageIndex}` : '';
     const pageSize = query.pageSize ? `&pageSize=${query.pageSize}` : '';
     const sort = `&sort=${query.sort}`;
+    const isActive = `&isActive=${query.isActive}`;
 
     const httpOptions = {
       headers: this.createHeaders(this.token),
     };
 
-    return this.http.get<IGetLaptop[]>(
-      `http://localhost:3001/api/product/getAll?${searchString}${pageIndex}${pageSize}${sort}`,
+    return this.http.get<IgetPagination>(
+      `${this.baseUrl}product/getAll?${searchString}${pageIndex}${pageSize}${sort}${isActive}`,
       httpOptions
     );
   }
@@ -47,7 +51,29 @@ export class LaptopService {
     };
 
     return this.http.get<any[]>(
-      `http://localhost:3001/api/product/getWithVariant`,
+      `${this.baseUrl}product/getWithVariant`,
+      httpOptions
+    );
+  }
+
+  getAllVariantNoneParam(): Observable<any[]> {
+    const httpOptions = {
+      headers: this.createHeaders(this.token),
+    };
+
+    return this.http.get<any[]>(
+      `${this.baseUrl}variant/getAllVariant`,
+      httpOptions
+    );
+  }
+
+  getAllVariantWithoutPrice(): Observable<any[]> {
+    const httpOptions = {
+      headers: this.createHeaders(this.token),
+    };
+
+    return this.http.get<any[]>(
+      `${this.baseUrl}variant/getAllWithoutPrice`,
       httpOptions
     );
   }
@@ -58,7 +84,7 @@ export class LaptopService {
     };
 
     return this.http.get<IGetVariant[]>(
-      `http://localhost:3001/api/variant/getByLaptopId/` + id,
+      `${this.baseUrl}variant/getByLaptopId/` + id,
       httpOptions
     );
   }
@@ -68,7 +94,7 @@ export class LaptopService {
       headers: this.createHeaders(this.token),
     };
     return this.http.delete(
-      `http://localhost:3001/api/product/delete/` + id,
+      `${this.baseUrl}product/delete/` + id,
       httpOptions
     );
   }
@@ -81,7 +107,7 @@ export class LaptopService {
     };
 
     return this.http.get<any>(
-      'http://localhost:3001/api/product/getById/' + id,
+      '${this.baseUrl}product/getById/' + id,
       httpOptions
     );
   }
@@ -94,7 +120,7 @@ export class LaptopService {
     };
 
     return this.http.put(
-      'http://localhost:3001/api/product/update',
+      '${this.baseUrl}product/update',
       product,
       httpOptions
     );
@@ -108,7 +134,7 @@ export class LaptopService {
     };
 
     return this.http.post(
-      'http://localhost:3001/api/product/add',
+      '${this.baseUrl}product/add',
       product,
       httpOptions
     );
@@ -122,7 +148,7 @@ export class LaptopService {
     };
 
     return this.http.post(
-      'http://localhost:3001/api/variant/add',
+      '${this.baseUrl}variant/add',
       variant,
       httpOptions
     );
@@ -135,7 +161,7 @@ export class LaptopService {
     };
 
     return this.http.put(
-      'http://localhost:3001/api/variant/update',
+      '${this.baseUrl}variant/update',
       variant,
       httpOptions
     );
@@ -149,7 +175,7 @@ export class LaptopService {
     };
 
     return this.http.delete(
-      'http://localhost:3001/api/variant/delete/' + id,
+      '${this.baseUrl}variant/delete/' + id,
       httpOptions
     );
   }
@@ -162,7 +188,7 @@ export class LaptopService {
     };
 
     return this.http.get<IVariant>(
-      'http://localhost:3001/api/variant/getById/' + id,
+      '${this.baseUrl}variant/getById/' + id,
       httpOptions
     );
   }
@@ -175,7 +201,7 @@ export class LaptopService {
     };
 
     return this.http.get<IGetVariant>(
-      'http://localhost:3001/api/variant/getByLaptopId/' + id,
+      '${this.baseUrl}variant/getByLaptopId/' + id,
       httpOptions
     );
   }
@@ -190,7 +216,7 @@ export class LaptopService {
     const category_ids =query.category_ids? `&category_ids=${query.category_ids}`:[];
 
     return this.http.get<any>(
-      `http://localhost:3001/api/variant/getAll?+${searchString}${pageIndex}${pageSize}${sort}${brand_ids}${category_ids}`
+      `${this.baseUrl}variant/getAll?+${searchString}${pageIndex}${pageSize}${sort}${brand_ids}${category_ids}`
     );
   }
 }

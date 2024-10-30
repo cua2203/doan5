@@ -4,6 +4,7 @@
             <img src="http://localhost:3001/uploads/category/{{imagePath}}"  alt="Image">
         </div>
     </div>
+    
     <div>
         <button class="btn btn-danger m-2" [disabled]="!FileSelected"  (click)="onDelete()">Xóa</button>
         <input type="file" class="btn btn-primary m-2" (change)="upload($event)" style="color: transparent;width: 106px;">

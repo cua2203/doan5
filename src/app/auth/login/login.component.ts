@@ -28,11 +28,11 @@ export class LoginComponent {
         this.form.value.email,this.form.value.password
       )
       .subscribe((data: any) => {
-        console.log(data)
+ 
         this.cookie.set('user_id', data.user_id,1,'/','localhost',true,'Lax');
         this.cookie.set('roles', data.roles,1,'/','localhost',true,'Lax');
         this.cookie.set('token', data.token,1,'/','localhost',true,'Lax');
-     
+        console.log(data.roles)
         if(data.roles.includes('User') || data.roles.includes('Admin'))
             this.router.navigate(['/admin']);
         else 

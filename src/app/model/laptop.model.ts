@@ -6,6 +6,10 @@ export interface Ilaptop{
     brand_id:number;
     status:boolean
 }
+export interface IgetPagination{
+    data: IGetLaptop[];
+    totalPage: number
+}
 
 export interface IGetLaptop{
     id:number;
@@ -26,8 +30,6 @@ export interface IAddLaptop{
     cpu : string;
     description :string; 
     pin : string;
-    var_image :string; 
-
 }
 
 
@@ -67,4 +69,5 @@ export interface Ipagination{
     pageIndex:number;
     pageSize:number;
     sort:number;
+    isActive: number
 }
